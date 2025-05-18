@@ -1,7 +1,8 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import { kribo } from './kribo.js'
+// import { Backgroundhappy } from './backgroundhappy.js'
+import { Kribo } from './kribo.js'
 
 class Game extends Engine {
 
@@ -16,8 +17,8 @@ class Game extends Engine {
     }
 
     startGame() {
-        const backgroundhappy = new backgroundhappy();
-        this.add(background);
+        // const backgroundhappy = new Backgroundhappy();
+        // this.add(backgroundhappy);
 
         console.log("start game!")
 

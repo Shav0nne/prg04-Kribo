@@ -1,7 +1,7 @@
 import { Actor, Vector, Keys } from "excalibur";
 import { Resources } from './resources.js';
 
-export class Shark extends Actor {
+export class Kribo extends Actor {
     constructor() {
         super({ width: Resources.Kribo.width, height: Resources.Kribo.height });
         console.log("I am Kribo!");
@@ -10,8 +10,8 @@ export class Shark extends Actor {
     }
 
     onInitialize(engine) {
-        this.scale = new Vector(0.4, 0.4);
-        this.pos = new Vector(40, 225);
+        this.scale = new Vector(0.07, 0.07);
+        this.pos = new Vector(100, 450);
         this.vel = new Vector(60, 0);
     }
 
@@ -21,24 +21,18 @@ export class Shark extends Actor {
         let kb = engine.input.keyboard
 
         if (engine.input.keyboard.isHeld(Keys.Left)) {
-            xspeed = -500;
+            xspeed = -300;
         }
         if (engine.input.keyboard.isHeld(Keys.Right)) {
-            xspeed = 500;
+            xspeed = 300;
         }
-        if (engine.input.keyboard.isHeld(Keys.Up)) {
-            yspeed = -500;
-        }
-        if (engine.input.keyboard.isHeld(Keys.Down)) {
-            yspeed = 500;
-        }
+        // if (engine.input.keyboard.isHeld(Keys.Up)) {
+        //     yspeed = -500;
+        // }
+        // if (engine.input.keyboard.isHeld(Keys.Down)) {
+        //     yspeed = 500;
+        // }
         this.vel = new Vector(xspeed, yspeed);
     }
 
-    // hitSomething(event) { console.log()
-    //     if (event.other.owner instanceof Fish) { 
-    //         console.log("Shark ate a fish!");
-    //         event.other.owner.resetFish();
-    //         this.scene.engine.updateScore()
-    //     }
 }
