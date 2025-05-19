@@ -4,7 +4,7 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 const Resources = {
     Kribo: new ImageSource('images/kribo.jpeg'),
     BgHappy: new ImageSource('images/backgroundhappy.jpeg'),
-    // Block: new ImageSource('images/block.jpeg')
+    Block: new ImageSource('images/block.png')
 }
 
 
