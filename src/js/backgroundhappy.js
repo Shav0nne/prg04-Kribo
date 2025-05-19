@@ -6,6 +6,6 @@ export class Backgroundhappy extends Actor {
         super()
         this.graphics.use(Resources.BgHappy.toSprite());
         this.pos = new Vector(400,300)
-        this.scale = new Vector (1.3, 1.3)
+        this.scale = new Vector (1.55, 1.55)
     }
 }

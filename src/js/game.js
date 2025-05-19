@@ -20,17 +20,19 @@ class Game extends Engine {
     startGame() {
         const backgroundhappy = new Backgroundhappy();
         this.add(backgroundhappy);
-
-        const block = new Block();
-        this.add(block);
-
-        // const blocks = createBlocksInRow(50, 550, 5, 60); 
-        // blocks.forEach(block => this.add(block)); 
-
-        console.log("start game!")
-
+    
+        const blockWidth = Resources.Block.width * 0.1; 
+        const screenWidth = this.drawWidth;
+    
+        for (let x = 0; x < screenWidth; x += blockWidth) {
+            const block = new Block(x + blockWidth / 2, 550);
+            this.add(block);
+        }
+    
         const kribo = new Kribo();
         this.add(kribo);
+    
+        console.log("start game!");
     }
 }
 

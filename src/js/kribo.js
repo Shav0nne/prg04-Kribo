@@ -22,17 +22,17 @@ export class Kribo extends Actor {
         let kb = engine.input.keyboard;
 
         if (kb.isHeld(Keys.Left)) {
-            xspeed = -300;
+            xspeed = -250;
             this.graphics.flipHorizontal = true
         }
         if (kb.isHeld(Keys.Right)) {
-            xspeed = 300;
+            xspeed = 250;
             this.graphics.flipHorizontal = false
         }
 
         // Jump logic
         if (kb.wasPressed(Keys.Up) && !this.isJumping) {
-            this.vel.y = -400;              
+            this.vel.y = -350;              
             this.isJumping = true;
             console.log("I'm jumping");
         }
