@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
+import { Engine, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Backgroundhappy } from './backgroundhappy.js'
 import { Block } from './block.js'
@@ -31,7 +31,12 @@ class Game extends Engine {
     
         const kribo = new Kribo();
         this.add(kribo);
-    
+
+        // Play background sound
+        Resources.KriboHappyLandSong.loop = true; // Loop the sound
+        Resources.KriboHappyLandSong.volume = 0.5; // Set volume 
+        Resources.KriboHappyLandSong.play();
+
         console.log("start game!");
     }
 }
