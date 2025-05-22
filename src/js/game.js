@@ -4,8 +4,13 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Backgroundhappy } from './backgroundhappy.js'
 import { Block } from './block.js'
 import { Kribo } from './kribo.js'
+import { Thorn } from './thorn.js'
+import { Bean } from './bean.js'
+import { UI } from './ui.js'
 
 class Game extends Engine {
+
+    ui
 
     constructor() {
         super({ 
@@ -32,10 +37,16 @@ class Game extends Engine {
         const kribo = new Kribo();
         this.add(kribo);
 
-        // Play background sound
-        Resources.KriboHappyLandSong.loop = true; // Loop the sound
-        Resources.KriboHappyLandSong.volume = 0.5; // Set volume 
-        Resources.KriboHappyLandSong.play();
+        const thorn = new Thorn();
+        this.add(thorn);
+
+        const bean = new Bean();
+        this.add(bean);
+
+        this.ui = new UI();
+        this.add(this.ui);
+
+        Resources.KriboHappyLand.play(0.4)
 
         console.log("start game!");
     }

@@ -1,11 +1,14 @@
-import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import { ImageSource, Resource, Loader, Sound } from 'excalibur'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
-    Kribo: new ImageSource('images/kribo.jpeg'),
+    Kribo: new ImageSource('images/kribo.png'),
+    // Kriboafk: new ImageSource('images/kriboafk.png'),
+    Bean: new ImageSource('images/bean.png'),
     BgHappy: new ImageSource('images/backgroundhappy.jpeg'),
     Block: new ImageSource('images/block.png'),
-    KriboHappyLandSong: new Sound ('audio/KriboHappyLand.mp3')
+    Thorn: new ImageSource('images/thorn.png'),
+    KriboHappyLand: new Sound ('sounds/KriboHappyLand.mp3')
 }
 
 

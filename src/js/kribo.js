@@ -1,18 +1,21 @@
 import { Actor, Vector, Keys } from "excalibur";
 import { Resources } from './resources.js';
+import { Thorn } from './thorn.js'
+import { Bean } from "./bean.js";
 
 export class Kribo extends Actor {
     constructor() {
         super({ width: Resources.Kribo.width, height: Resources.Kribo.height });
         console.log("I am Kribo!");
         this.graphics.use(Resources.Kribo.toSprite());
-        this.events.on('collisionstart', (event) => this.hitSomething(event));
+        this.events.on('collisionstart', (event) => this.kriboDeath(event));
         this.isJumping = false;
         this.groundY = 450;     
         this.gravity = 800;       
     }
 
     onInitialize(engine) {
+        this.engine = engine;
         this.scale = new Vector(0.06, 0.06);
         this.pos = new Vector(100, this.groundY);
     }
@@ -53,7 +56,24 @@ export class Kribo extends Actor {
         this.vel.x = xspeed;
     }
 
-    hitSomething(event) {
-        // Botsing logica
+   resetKribo() {
+        this.scale = new Vector(0.06, 0.06);
+        this.pos = new Vector(100, this.groundY);
+    }
+
+    kriboDeath(event) {
+        if (event.other.owner instanceof Thorn) {
+            console.log("You died");
+            this.resetKribo(); 
+        }
+
+        if (event.other.owner instanceof Bean) {
+            console.log(`Kribo got a point!`);
+            const ui = this.engine.currentScene.ui;
+            if (ui) {
+                ui.addPoint();
+            }
+            event.other.owner.kill(); 
+        }
     }
 }

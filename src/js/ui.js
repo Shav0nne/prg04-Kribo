@@ -1,14 +1,9 @@
 import { Actor, Engine, Vector, Label, Font, FontUnit, Text } from "excalibur"
 
 export class UI extends Actor {
-
-    mylabel
-
     constructor() {
-        super()
-        console.log("Ik ben UI")
-
-        this.score = 0
+        super();
+        this.score = 0;
         this.mylabel = new Label({
             text: `Score: ${this.score}`,
             pos: new Vector(100, 100),
@@ -17,17 +12,16 @@ export class UI extends Actor {
                 size: 40,
                 unit: FontUnit.Px
             })
-        })
-        this.addChild(this.mylabel)
-        this.mylabel.text = "score: "
+        });
+        this.addChild(this.mylabel);
     }
 
-    addScore() {
-        console.log("UI added a point")
+    addPoint() {
+        this.score += 1;
+        this.updatePoint();
     }
 
-    updateScore() {
-        this.score++
-        this.mylabel.text = `Score: ${this.score}`
+    updatePoint() {
+        this.mylabel.text = `Kribo: ${this.score}`;
     }
 }
