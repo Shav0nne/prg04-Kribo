@@ -5,7 +5,9 @@ import { Backgroundhappy } from './backgroundhappy.js'
 import { Block } from './block.js'
 import { Kribo } from './kribo.js'
 import { Thorn } from './thorn.js'
+import { Shadow } from './shadow.js'
 import { Bean } from './bean.js'
+import { Platform } from './platform.js'
 import { UI } from './ui.js'
 
 class Game extends Engine {
@@ -33,12 +35,18 @@ class Game extends Engine {
             const block = new Block(x + blockWidth / 2, 550);
             this.add(block);
         }
+
+        const platform = new Platform();
+        this.add(platform);
     
         const kribo = new Kribo();
         this.add(kribo);
 
         const thorn = new Thorn();
         this.add(thorn);
+
+        const shadow = new Shadow();
+        this.add(shadow);
 
         const bean = new Bean();
         this.add(bean);

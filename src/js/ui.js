@@ -1,11 +1,16 @@
-import { Actor, Engine, Vector, Label, Font, FontUnit, Text } from "excalibur"
+import { Actor, Vector, Label, Font, FontUnit } from "excalibur"
 
 export class UI extends Actor {
+    
+    score
+    mylabel
+
     constructor() {
         super();
         this.score = 0;
+
         this.mylabel = new Label({
-            text: `Score: ${this.score}`,
+            text: `Kribo: ${this.score}`,
             pos: new Vector(100, 100),
             font: new Font({
                 family: 'impact',
@@ -13,15 +18,16 @@ export class UI extends Actor {
                 unit: FontUnit.Px
             })
         });
+
         this.addChild(this.mylabel);
     }
 
-    addPoint() {
-        this.score += 1;
-        this.updatePoint();
+    addScore() {
+        this.score++;
+        this.updateScore();
     }
 
-    updatePoint() {
+    updateScore() {
         this.mylabel.text = `Kribo: ${this.score}`;
     }
 }

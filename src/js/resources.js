@@ -8,6 +8,8 @@ const Resources = {
     BgHappy: new ImageSource('images/backgroundhappy.jpeg'),
     Block: new ImageSource('images/block.png'),
     Thorn: new ImageSource('images/thorn.png'),
+    Platform: new ImageSource('images/platform.png'),
+    Shadow: new ImageSource('images/shadow.png'),
     KriboHappyLand: new Sound ('sounds/KriboHappyLand.mp3')
 }
 

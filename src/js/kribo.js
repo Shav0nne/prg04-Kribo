@@ -2,6 +2,7 @@ import { Actor, Vector, Keys } from "excalibur";
 import { Resources } from './resources.js';
 import { Thorn } from './thorn.js'
 import { Bean } from "./bean.js";
+import { Shadow } from "./shadow.js";
 
 export class Kribo extends Actor {
     constructor() {
@@ -35,7 +36,7 @@ export class Kribo extends Actor {
 
         // Jump logic
         if (kb.wasPressed(Keys.Up) && !this.isJumping) {
-            this.vel.y = -350;              
+            this.vel.y = -370;              
             this.isJumping = true;
             console.log("I'm jumping");
         }
@@ -63,16 +64,17 @@ export class Kribo extends Actor {
 
     kriboDeath(event) {
         if (event.other.owner instanceof Thorn) {
-            console.log("You died");
+            console.log("You died by a Thorn");
             this.resetKribo(); 
         }
-
+         if (event.other.owner instanceof Shadow) {
+            console.log("You died by a Shadow");
+            this.resetKribo(); 
+        }
         if (event.other.owner instanceof Bean) {
             console.log(`Kribo got a point!`);
-            const ui = this.engine.currentScene.ui;
-            if (ui) {
-                ui.addPoint();
-            }
+            this.score++
+            this.scene.engine.ui.addScore(this.score);
             event.other.owner.kill(); 
         }
     }
