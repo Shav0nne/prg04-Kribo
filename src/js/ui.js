@@ -1,25 +1,40 @@
-import { Actor, Vector, Label, Font, FontUnit } from "excalibur"
+import { Actor, Vector, Label, Font, FontUnit } from "excalibur";
 
 export class UI extends Actor {
     
     score
-    mylabel
+    death
+    scoreLabel
+    deathLabel
 
     constructor() {
         super();
-        this.score = 0;
 
-        this.mylabel = new Label({
+        this.score = 0;
+        this.death = 0;
+
+        this.scoreLabel = new Label({
             text: `Kribo: ${this.score}`,
-            pos: new Vector(100, 100),
+            pos: new Vector(50, 50),
             font: new Font({
                 family: 'impact',
-                size: 40,
+                size: 25,
                 unit: FontUnit.Px
             })
         });
 
-        this.addChild(this.mylabel);
+        this.deathLabel = new Label({
+            text: `Deaths: ${this.death}`,
+            pos: new Vector(50, 80),
+            font: new Font({
+                family: 'impact',
+                size: 25,
+                unit: FontUnit.Px
+            })
+        });
+
+        this.addChild(this.scoreLabel);
+        this.addChild(this.deathLabel);
     }
 
     addScore() {
@@ -27,7 +42,16 @@ export class UI extends Actor {
         this.updateScore();
     }
 
+    addDeath() {
+        this.death++;
+        this.updateDeath();
+    }
+
     updateScore() {
-        this.mylabel.text = `Kribo: ${this.score}`;
+        this.scoreLabel.text = `Kribo: ${this.score}`;
+    }
+
+    updateDeath() {
+        this.deathLabel.text = `Deaths: ${this.death}`;
     }
 }

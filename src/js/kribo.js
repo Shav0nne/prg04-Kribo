@@ -65,10 +65,14 @@ export class Kribo extends Actor {
     kriboDeath(event) {
         if (event.other.owner instanceof Thorn) {
             console.log("You died by a Thorn");
+            this.death++
+            this.scene.engine.ui.addDeath(this.death);
             this.resetKribo(); 
         }
          if (event.other.owner instanceof Shadow) {
             console.log("You died by a Shadow");
+            this.death++
+            this.scene.engine.ui.addDeath(this.death);
             this.resetKribo(); 
         }
         if (event.other.owner instanceof Bean) {
