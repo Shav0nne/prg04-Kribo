@@ -5,26 +5,25 @@ export class UI extends Actor {
     score
     death
     scoreLabel
-    deathLabel
 
     constructor() {
         super();
 
         this.score = 0;
-        this.death = 0;
 
-        this.scoreLabel = new Label({
-            text: `Kribo: ${this.score}`,
-            pos: new Vector(50, 50),
+        
+        this.deathLabel = new Label({
+            text: `Deaths: ${this.death}`,
+            pos: new Vector(-100, 0),
             font: new Font({
                 family: 'impact',
-                size: 25,
+                size: 1,
                 unit: FontUnit.Px
             })
         });
 
-        this.deathLabel = new Label({
-            text: `Deaths: ${this.death}`,
+        this.scoreLabel = new Label({
+            text: `Beans: ${this.score}`,
             pos: new Vector(50, 80),
             font: new Font({
                 family: 'impact',
@@ -48,7 +47,7 @@ export class UI extends Actor {
     }
 
     updateScore() {
-        this.scoreLabel.text = `Kribo: ${this.score}`;
+        this.scoreLabel.text = `Beans: ${this.score}`;
     }
 
     updateDeath() {

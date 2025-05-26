@@ -1,9 +1,10 @@
-import { ImageSource, Resource, Loader, Sound } from 'excalibur'
+import { ImageSource, Resource, Loader, Sound, ImageWrapping} from 'excalibur'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
     Kribo: new ImageSource('images/kribo.png'),
     // Kriboafk: new ImageSource('images/kriboafk.png'),
+    Lives : new ImageSource('images/lives.png', { wrapping: ImageWrapping.Repeat}),
     Bean: new ImageSource('images/bean.png'),
     BgHappy: new ImageSource('images/backgroundhappy.jpeg'),
     Block: new ImageSource('images/block.png'),
