@@ -15,6 +15,7 @@ export class GameLevel extends Scene {
     lives
 
     onInitialize(engine) {
+        
         const backgroundhappy = new Backgroundhappy();
         this.add(backgroundhappy);
 
@@ -27,9 +28,9 @@ export class GameLevel extends Scene {
         }
 
         this.ui = new UI();
-        this.lives = new Lives();
-        
         this.add(this.ui);
+
+        this.lives = new Lives();
         this.add(this.lives);
         
         const kribo = new Kribo(this.ui, this.lives);
@@ -46,8 +47,7 @@ export class GameLevel extends Scene {
         const shadow = new Shadow();
         this.add(shadow);
 
-        const bean = new Bean();
-        this.add(bean);
+        this.add(new Bean(300, 550))
 
         Resources.KriboHappyLand.play(0.4);
 

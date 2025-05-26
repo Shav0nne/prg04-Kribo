@@ -11,7 +11,6 @@ export class UI extends Actor {
 
         this.score = 0;
 
-        
         this.deathLabel = new Label({
             text: `Deaths: ${this.death}`,
             pos: new Vector(-100, 0),

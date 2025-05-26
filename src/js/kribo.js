@@ -1,78 +1,68 @@
-import { Actor, Vector, Keys, CollisionType } from "excalibur";
+import { Actor, Vector, Keys, CollisionType, DegreeOfFreedom } from "excalibur";
 import { Resources } from './resources.js';
 import { Thorn } from './thorn.js'
 import { Bean } from "./bean.js";
 import { Shadow } from "./shadow.js";
-import { Platform } from './platform.js'
 
 export class Kribo extends Actor {
     constructor(ui, lives) {
-        super({
-            width: Resources.Kribo.width,
-            height: Resources.Kribo.height,
-            collisonType: CollisionType.Active
-        });
-        this.ui = ui;
-        this.lives = lives;
-        this.maxLives = 3;
-        this.currentLives = this.maxLives;
-        this.score = 0;
-
-        console.log("I am Kribo!");
-        this.graphics.use(Resources.Kribo.toSprite());
-        this.events.on('collisionstart', (event) => this.kriboDeath(event));
-        this.isJumping = false;
-        this.onPlatform = false; 
-        this.groundY = 450;
-        this.gravity = 800;
+      super({
+        width: Resources.Kribo.width,
+        height: Resources.Kribo.height,
+        collisionType: CollisionType.Active
+      });
+      this.ui = ui;
+      this.lives = lives;
+      this.maxLives = 3;
+      this.currentLives = this.maxLives;
+      this.score = 0;
+      this.hasJumped = false;
+      this.pos = new Vector(100, 450);
     }
-
+  
     onInitialize(engine) {
-        this.engine = engine;
+        this.graphics.use(Resources.Kribo.toSprite());
         this.scale = new Vector(0.06, 0.06);
-        this.pos = new Vector(100, this.groundY);
+        this.pos = new Vector(100, 450);
+    
+        this.body.collisionType = CollisionType.Active;
+        this.body.useGravity = true;
+        this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation);
+    
+        this.on('collisionstart', (event) => this.kriboDeath(event));
+    
+        this.on('postcollision', (event) => {
+            if (event.contact.normal.y < 0) {
+                this.hasJumped = false;
+            }
+        });
     }
 
     onPreUpdate(engine, delta) {
-        let xspeed = 0;
-        let kb = engine.input.keyboard;
-
-        if (kb.isHeld(Keys.Left)) {
-            xspeed = -250;
-            this.graphics.flipHorizontal = true
-        }
-        if (kb.isHeld(Keys.Right)) {
-            xspeed = 250;
-            this.graphics.flipHorizontal = false
-        }
-
-        // Jump logic
-        if (kb.wasPressed(Keys.Up) && !this.isJumping) {
-            this.vel.y = -370;
-            this.isJumping = true;
-            this.onPlatform = false;
-            console.log("I'm jumping");
-        }
-
-        // Zwaartekracht toepassen
-        this.vel.y += this.gravity * (delta / 1000);
-
-        // Positie updaten
-        this.pos = this.pos.add(this.vel.scale(delta / 1000));
-
-        // Terug op de grond
-        if (this.pos.y >= this.groundY) {
-            this.pos.y = this.groundY;
-            this.vel.y = 0;
-            this.isJumping = false;
-        }
-
-        this.vel.x = xspeed;
+      const kb = engine.input.keyboard;
+  
+      // links/rechts
+      if (kb.isHeld(Keys.Left)) {
+        this.vel.x = -250;
+        this.graphics.flipHorizontal = true;
+      } else if (kb.isHeld(Keys.Right)) {
+        this.vel.x = 250;
+        this.graphics.flipHorizontal = false;
+      } else {
+        this.vel.x = 0;
+      }
+  
+      // springen
+      if (kb.wasPressed(Keys.Up) && !this.hasJumped) {
+        this.body.applyLinearImpulse(new Vector(0, -550)); 
+        this.hasJumped = true;
+        console.log("Kribo jumps!");
+      }
     }
 
     resetKribo() {
-        this.scale = new Vector(0.06, 0.06);
-        this.pos = new Vector(100, this.groundY);
+        this.vel = Vector.Zero;
+        this.pos = new Vector(300, 300);
     }
 
     kriboDeath(event) {
@@ -86,7 +76,7 @@ export class Kribo extends Actor {
 
             if (this.currentLives === 0) {
                 console.log("Game Over!");
-                this.engine.goToScene('start');  
+                this.engine.goToScene('start');
             }
 
             this.resetKribo();
