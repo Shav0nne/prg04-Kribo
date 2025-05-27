@@ -4,8 +4,8 @@ import { Resources } from './resources.js';
 export class Shadow extends Actor {
     constructor() {
         super({
-            width: 75,
-            height: 75,
+            width: 150,
+            height: 400,
             pos: new Vector(800, 450),
             vel: new Vector(-50, 0), 
             scale: new Vector(0.3, 0.3)

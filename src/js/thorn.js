@@ -4,8 +4,8 @@ import { Resources } from './resources.js';
 export class Thorn extends Actor {
     constructor(x, y) {
         super({
-            width: 500,
-            height: 500,
+            width: 750,
+            height: 750,
             pos: new Vector(450, 450)
         });
         this.graphics.use(Resources.Thorn.toSprite());

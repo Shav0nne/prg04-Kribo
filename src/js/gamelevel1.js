@@ -25,6 +25,7 @@ export class GameLevel extends Scene {
         for (let x = 0; x < screenWidth; x += blockWidth) {
             const block = new Block(x + blockWidth / 2, 550);
             this.add(block);
+            
         }
 
         this.ui = new UI();
@@ -32,12 +33,9 @@ export class GameLevel extends Scene {
 
         this.lives = new Lives();
         this.add(this.lives);
-        
-        const kribo = new Kribo(this.ui, this.lives);
-        this.add(kribo);
 
-        const platform1 = new Platform(200, 350);
-        const platform2 = new Platform(500, 250);
+        const platform1 = new Platform(250, 350);
+        const platform2 = new Platform(550, 250);
         this.add(platform1);
         this.add(platform2);
 
@@ -48,6 +46,9 @@ export class GameLevel extends Scene {
         this.add(shadow);
 
         this.add(new Bean(300, 550))
+
+        const kribo = new Kribo(this.ui, this.lives);
+        this.add(kribo);
 
         Resources.KriboHappyLand.play(0.4);
 

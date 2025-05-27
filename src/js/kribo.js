@@ -9,7 +9,8 @@ export class Kribo extends Actor {
       super({
         width: Resources.Kribo.width,
         height: Resources.Kribo.height,
-        collisionType: CollisionType.Active
+        collisionType: CollisionType.Active,
+        pos: new Vector(50, 50) 
       });
       this.ui = ui;
       this.lives = lives;
@@ -17,18 +18,16 @@ export class Kribo extends Actor {
       this.currentLives = this.maxLives;
       this.score = 0;
       this.hasJumped = false;
-      this.pos = new Vector(100, 450);
     }
   
     onInitialize(engine) {
         this.graphics.use(Resources.Kribo.toSprite());
+        // this.body.bounciness = -2;
         this.scale = new Vector(0.06, 0.06);
-        this.pos = new Vector(100, 450);
-    
         this.body.collisionType = CollisionType.Active;
         this.body.useGravity = true;
         this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation);
-    
+        
         this.on('collisionstart', (event) => this.kriboDeath(event));
     
         this.on('postcollision', (event) => {
@@ -41,7 +40,6 @@ export class Kribo extends Actor {
     onPreUpdate(engine, delta) {
       const kb = engine.input.keyboard;
   
-      // links/rechts
       if (kb.isHeld(Keys.Left)) {
         this.vel.x = -250;
         this.graphics.flipHorizontal = true;
@@ -52,7 +50,6 @@ export class Kribo extends Actor {
         this.vel.x = 0;
       }
   
-      // springen
       if (kb.wasPressed(Keys.Up) && !this.hasJumped) {
         this.body.applyLinearImpulse(new Vector(0, -550)); 
         this.hasJumped = true;
@@ -62,7 +59,7 @@ export class Kribo extends Actor {
 
     resetKribo() {
         this.vel = Vector.Zero;
-        this.pos = new Vector(300, 300);
+        this.pos = new Vector(100, 300);
     }
 
     kriboDeath(event) {

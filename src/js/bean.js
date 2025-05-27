@@ -4,8 +4,8 @@ import { Resources } from './resources.js';
 export class Bean extends Actor {
     constructor(x, y) {
         super({
-            width: 50,
-            height: 50,
+            width: 100,
+            height: 100,
             pos: new Vector(300, 550)
         });
         this.graphics.use(Resources.Bean.toSprite());
