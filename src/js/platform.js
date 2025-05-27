@@ -14,7 +14,5 @@ export class Platform extends Actor {
   onInitialize(engine) {
     this.graphics.use(Resources.Platform.toSprite());
     this.scale = new Vector(0.5, 0.5);
-    // Optioneel: debug collision shape
-    // this.graphics.showDebug = true;
   }
 }

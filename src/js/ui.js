@@ -1,19 +1,18 @@
-import { Actor, Vector, Label, Font, FontUnit } from "excalibur";
+import { ScreenElement, Vector, Label, Font, FontUnit } from "excalibur";
 
-export class UI extends Actor {
-    
+export class UI extends ScreenElement {
     score
     death
     scoreLabel
 
     constructor() {
-        super();
-
+        super({ anchor: Vector.Zero });
         this.score = 0;
+        this.death = 0;
 
         this.deathLabel = new Label({
             text: `Deaths: ${this.death}`,
-            pos: new Vector(-100, 0),
+            pos: new Vector(0, 0),
             font: new Font({
                 family: 'impact',
                 size: 1,
@@ -23,7 +22,7 @@ export class UI extends Actor {
 
         this.scoreLabel = new Label({
             text: `Beans: ${this.score}`,
-            pos: new Vector(50, 80),
+            pos: new Vector(22, 80),
             font: new Font({
                 family: 'impact',
                 size: 25,

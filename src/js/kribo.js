@@ -10,7 +10,7 @@ export class Kribo extends Actor {
         width: Resources.Kribo.width,
         height: Resources.Kribo.height,
         collisionType: CollisionType.Active,
-        pos: new Vector(50, 50) 
+        pos: new Vector(50, 450) 
       });
       this.ui = ui;
       this.lives = lives;
@@ -18,11 +18,12 @@ export class Kribo extends Actor {
       this.currentLives = this.maxLives;
       this.score = 0;
       this.hasJumped = false;
+      this.engine = null;
     }
   
     onInitialize(engine) {
+        this.engine = engine;
         this.graphics.use(Resources.Kribo.toSprite());
-        // this.body.bounciness = -2;
         this.scale = new Vector(0.06, 0.06);
         this.body.collisionType = CollisionType.Active;
         this.body.useGravity = true;
@@ -45,13 +46,13 @@ export class Kribo extends Actor {
         this.graphics.flipHorizontal = true;
       } else if (kb.isHeld(Keys.Right)) {
         this.vel.x = 250;
-        this.graphics.flipHorizontal = false;
+        this.graphics.flipHorizontal = false; 
       } else {
         this.vel.x = 0;
       }
   
       if (kb.wasPressed(Keys.Up) && !this.hasJumped) {
-        this.body.applyLinearImpulse(new Vector(0, -550)); 
+        this.body.applyLinearImpulse(new Vector(0, -320 * delta)); 
         this.hasJumped = true;
         console.log("Kribo jumps!");
       }

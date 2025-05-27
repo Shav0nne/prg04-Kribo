@@ -1,4 +1,4 @@
-import { Scene } from "excalibur"
+import { Scene, BoundingBox } from "excalibur"
 import { Resources } from './resources.js'
 import { Backgroundhappy } from './backgroundhappy.js'
 import { Block } from './block.js'
@@ -45,10 +45,15 @@ export class GameLevel extends Scene {
         const shadow = new Shadow();
         this.add(shadow);
 
-        this.add(new Bean(300, 550))
+        this.add(new Bean(300, 450))
+        this.add(new Bean(300, 300))
+        this.add(new Bean(550, 200))
 
         const kribo = new Kribo(this.ui, this.lives);
         this.add(kribo);
+
+        this.camera.strategy.lockToActor(kribo);
+        this.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 1200));
 
         Resources.KriboHappyLand.play(0.4);
 
