@@ -6,6 +6,7 @@ const Resources = {
     // Kriboafk: new ImageSource('images/kriboafk.png'),
     Lives : new ImageSource('images/lives.png', { wrapping: ImageWrapping.Repeat}),
     Bean: new ImageSource('images/bean.png'),
+    Star: new ImageSource('images/star.png'),
     BgHappy: new ImageSource('images/backgroundhappy.jpeg'),
     Block: new ImageSource('images/block.png'),
     Thorn: new ImageSource('images/thorn.png'),

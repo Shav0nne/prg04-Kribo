@@ -7,8 +7,8 @@ import { Shadow } from "./shadow.js";
 export class Kribo extends Actor {
     constructor(ui, lives) {
         super({
-            width: Resources.Kribo.width,
-            height: Resources.Kribo.height,
+            width: Resources.Kribo.width * 0.8,
+            height: Resources.Kribo.height * 0.8,
             collisionType: CollisionType.Active,
             pos: new Vector(50, 450)
         });
@@ -56,8 +56,20 @@ export class Kribo extends Actor {
             this.hasJumped = true;
             console.log("Kribo jumps!");
         }
-    }
 
+    if (this.pos.y > 500) {
+        console.log("Kribo fell out of the map!");
+        this.currentLives--;
+        if (this.currentLives < 0) this.currentLives = 0;
+        if (this.ui) this.ui.addDeath();
+        if (this.lives) this.lives.showLives(this.currentLives);
+        if (this.currentLives === 0) {
+            console.log("Game Over!");
+            this.engine.goToScene('start');
+        }
+        this.resetKribo();
+    }
+}
     resetKribo() {
         this.vel = Vector.Zero;
         this.pos = new Vector(100, 300);
@@ -66,19 +78,6 @@ export class Kribo extends Actor {
     kriboDeath(event) {
         if (event.other.owner instanceof Thorn || event.other.owner instanceof Shadow) {
             console.log("You died!");
-            this.currentLives--;
-            if (this.currentLives < 0) this.currentLives = 0;
-            if (this.ui) this.ui.addDeath();
-            if (this.lives) this.lives.showLives(this.currentLives);
-            if (this.currentLives === 0) {
-                console.log("Game Over!");
-                this.engine.goToScene('start');
-            }
-            this.resetKribo();
-        }
-
-        if (this.pos.y > 450) {
-            console.log("Kribo fall out of the map!");
             this.currentLives--;
             if (this.currentLives < 0) this.currentLives = 0;
             if (this.ui) this.ui.addDeath();

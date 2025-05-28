@@ -1,18 +1,18 @@
 import { Actor, Vector, CollisionType } from "excalibur";
 import { Resources } from './resources.js';
 
-export class Thorn extends Actor {
+export class Star extends Actor {
   constructor(x, y) {
     super({
       pos: new Vector(x, y),
-      width: Resources.Thorn.width * 0.7,
-      height: Resources.Thorn.height * 0.7,
+      width: Resources.Star.width * 0.3,
+      height: Resources.Star.height * 0.3,
       collisionType: CollisionType.Passive
     });
   }
 
   onInitialize(engine) {
-    this.graphics.use(Resources.Thorn.toSprite());
-    this.scale = new Vector(0.1, 0.1);
+    this.graphics.use(Resources.Star.toSprite());
+    this.scale = new Vector(0.2, 0.2);
   }
 }

@@ -23,7 +23,7 @@ export class GameLevel extends Scene {
 
         const blockWidth = Resources.Block.width * 0.1;
 
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
             const block = new Block(i * blockWidth + blockWidth / 2, 550);
             this.add(block);
         }    
@@ -34,16 +34,14 @@ export class GameLevel extends Scene {
         this.lives = new Lives();
         this.add(this.lives);
 
-        const platform1 = new Platform(250, 350);
-        const platform2 = new Platform(550, 250);
-        this.add(platform1);
-        this.add(platform2);
+        this.add(new Platform(250, 350))
+        this.add(new Platform(580, 250))
 
-        const thorn = new Thorn();
-        this.add(thorn);
+        this.add(new Thorn(400, 420));
+        this.add(new Thorn(650, 180));
+        this.add(new Thorn(850, 420));
 
-        const shadow = new Shadow();
-        this.add(shadow);
+        this.add(new Shadow(500, 420));
 
         this.add(new Bean(300, 450))
         this.add(new Bean(300, 300))
@@ -53,7 +51,7 @@ export class GameLevel extends Scene {
         this.add(kribo);
 
         this.camera.strategy.lockToActor(kribo);
-        this.camera.strategy.limitCameraBounds(new BoundingBox(0, -600, 2000, 600));
+        this.camera.strategy.limitCameraBounds(new BoundingBox(0, -200, 2000, 600));
 
         Resources.KriboHappyLand.play(0.4);
 
