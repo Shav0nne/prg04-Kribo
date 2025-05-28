@@ -6,7 +6,7 @@ export class Shadow extends Actor {
         super({
             width: 150,
             height: 400,
-            pos: new Vector(800, 450),
+            pos: new Vector(600, 420),
             vel: new Vector(-50, 0), 
             scale: new Vector(0.3, 0.3)
         });

@@ -6,21 +6,21 @@ import { Shadow } from "./shadow.js";
 
 export class Kribo extends Actor {
     constructor(ui, lives) {
-      super({
-        width: Resources.Kribo.width,
-        height: Resources.Kribo.height,
-        collisionType: CollisionType.Active,
-        pos: new Vector(50, 450) 
-      });
-      this.ui = ui;
-      this.lives = lives;
-      this.maxLives = 3;
-      this.currentLives = this.maxLives;
-      this.score = 0;
-      this.hasJumped = false;
-      this.engine = null;
+        super({
+            width: Resources.Kribo.width,
+            height: Resources.Kribo.height,
+            collisionType: CollisionType.Active,
+            pos: new Vector(50, 450)
+        });
+        this.ui = ui;
+        this.lives = lives;
+        this.maxLives = 3;
+        this.currentLives = this.maxLives;
+        this.score = 0;
+        this.hasJumped = false;
+        this.engine = null;
     }
-  
+
     onInitialize(engine) {
         this.engine = engine;
         this.graphics.use(Resources.Kribo.toSprite());
@@ -28,9 +28,9 @@ export class Kribo extends Actor {
         this.body.collisionType = CollisionType.Active;
         this.body.useGravity = true;
         this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation);
-        
+
         this.on('collisionstart', (event) => this.kriboDeath(event));
-    
+
         this.on('postcollision', (event) => {
             if (event.contact.normal.y < 0) {
                 this.hasJumped = false;
@@ -39,23 +39,23 @@ export class Kribo extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-      const kb = engine.input.keyboard;
-  
-      if (kb.isHeld(Keys.Left)) {
-        this.vel.x = -250;
-        this.graphics.flipHorizontal = true;
-      } else if (kb.isHeld(Keys.Right)) {
-        this.vel.x = 250;
-        this.graphics.flipHorizontal = false; 
-      } else {
-        this.vel.x = 0;
-      }
-  
-      if (kb.wasPressed(Keys.Up) && !this.hasJumped) {
-        this.body.applyLinearImpulse(new Vector(0, -320 * delta)); 
-        this.hasJumped = true;
-        console.log("Kribo jumps!");
-      }
+        const kb = engine.input.keyboard;
+
+        if (kb.isHeld(Keys.Left)) {
+            this.vel.x = -250;
+            this.graphics.flipHorizontal = true;
+        } else if (kb.isHeld(Keys.Right)) {
+            this.vel.x = 250;
+            this.graphics.flipHorizontal = false;
+        } else {
+            this.vel.x = 0;
+        }
+
+        if (kb.wasPressed(Keys.Up) && !this.hasJumped) {
+            this.body.applyLinearImpulse(new Vector(0, -320 * delta));
+            this.hasJumped = true;
+            console.log("Kribo jumps!");
+        }
     }
 
     resetKribo() {
@@ -68,15 +68,25 @@ export class Kribo extends Actor {
             console.log("You died!");
             this.currentLives--;
             if (this.currentLives < 0) this.currentLives = 0;
-
             if (this.ui) this.ui.addDeath();
             if (this.lives) this.lives.showLives(this.currentLives);
-
             if (this.currentLives === 0) {
                 console.log("Game Over!");
                 this.engine.goToScene('start');
             }
+            this.resetKribo();
+        }
 
+        if (this.pos.y > 450) {
+            console.log("Kribo fall out of the map!");
+            this.currentLives--;
+            if (this.currentLives < 0) this.currentLives = 0;
+            if (this.ui) this.ui.addDeath();
+            if (this.lives) this.lives.showLives(this.currentLives);
+            if (this.currentLives === 0) {
+                console.log("Game Over!");
+                this.engine.goToScene('start');
+            }
             this.resetKribo();
         }
 

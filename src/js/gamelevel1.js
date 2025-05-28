@@ -16,17 +16,17 @@ export class GameLevel extends Scene {
 
     onInitialize(engine) {
         
-        const background = new Backgroundhappy();
-        this.add(background);
+        let bg1 = new Backgroundhappy(750, 150);         
+        let bg2 = new Backgroundhappy(750 + 1500, 150);      
+        this.add(bg1);
+        this.add(bg2);
 
         const blockWidth = Resources.Block.width * 0.1;
-        const screenWidth = engine.drawWidth;
 
-        for (let x = 0; x < screenWidth; x += blockWidth) {
-            const block = new Block(x + blockWidth / 2, 550);
+        for (let i = 0; i < 15; i++) {
+            const block = new Block(i * blockWidth + blockWidth / 2, 550);
             this.add(block);
-            
-        }
+        }    
 
         this.ui = new UI();
         this.add(this.ui);
