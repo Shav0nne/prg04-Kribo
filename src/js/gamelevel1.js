@@ -16,8 +16,8 @@ export class GameLevel extends Scene {
 
     onInitialize(engine) {
         
-        const backgroundhappy = new Backgroundhappy();
-        this.add(backgroundhappy);
+        const background = new Backgroundhappy();
+        this.add(background);
 
         const blockWidth = Resources.Block.width * 0.1;
         const screenWidth = engine.drawWidth;
@@ -53,7 +53,7 @@ export class GameLevel extends Scene {
         this.add(kribo);
 
         this.camera.strategy.lockToActor(kribo);
-        this.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2000, 1200));
+        this.camera.strategy.limitCameraBounds(new BoundingBox(0, -600, 2000, 600));
 
         Resources.KriboHappyLand.play(0.4);
 

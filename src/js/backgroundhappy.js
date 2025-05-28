@@ -5,7 +5,7 @@ export class Backgroundhappy extends Actor {
     constructor() {
         super()
         this.graphics.use(Resources.BgHappy.toSprite());
-        this.pos = new Vector(400,300)
-        this.scale = new Vector (1.55, 1.55)
+        this.pos = new Vector(750,150)
+        this.scale = new Vector (1, 1)
     }
 }
