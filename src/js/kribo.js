@@ -3,6 +3,7 @@ import { Resources } from './resources.js';
 import { Thorn } from './thorn.js'
 import { Bean } from "./bean.js";
 import { Shadow } from "./shadow.js";
+import { Star } from './star.js'
 
 export class Kribo extends Actor {
     constructor(ui, lives) {
@@ -57,27 +58,51 @@ export class Kribo extends Actor {
             console.log("Kribo jumps!");
         }
 
-    if (this.pos.y > 500) {
-        console.log("Kribo fell out of the map!");
-        this.currentLives--;
-        if (this.currentLives < 0) this.currentLives = 0;
-        if (this.ui) this.ui.addDeath();
-        if (this.lives) this.lives.showLives(this.currentLives);
-        if (this.currentLives === 0) {
-            console.log("Game Over!");
-            this.engine.goToScene('start');
+        if (this.pos.y > 500) {
+            console.log("Kribo fell out of the map!");
+            this.currentLives--;
+            if (this.currentLives < 0) this.currentLives = 0;
+            if (this.ui) this.ui.addDeath();
+            if (this.lives) this.lives.showLives(this.currentLives);
+            if (this.currentLives === 0) {
+                console.log("Game Over!");
+                this.engine.goToScene('start');
+            }
+            this.resetKribo();
         }
-        this.resetKribo();
     }
-}
     resetKribo() {
         this.vel = Vector.Zero;
         this.pos = new Vector(100, 300);
     }
 
     kriboDeath(event) {
-        if (event.other.owner instanceof Thorn || event.other.owner instanceof Shadow) {
-            console.log("You died!");
+        const other = event.other?.owner;
+
+        if (!other) return;
+
+        if (other instanceof Shadow) {
+            if (event.side === "Bottom") {
+                console.log("Enemy defeated!");
+                other.kill();
+                this.body.applyLinearImpulse(new Vector(0, -200));
+                return;
+            } else {
+                console.log("You died by Shadow!");
+                this.currentLives--;
+                if (this.currentLives < 0) this.currentLives = 0;
+                if (this.ui) this.ui.addDeath();
+                if (this.lives) this.lives.showLives(this.currentLives);
+                if (this.currentLives === 0) {
+                    console.log("Game Over!");
+                    this.engine.goToScene('start');
+                }
+                this.resetKribo();
+            }
+        }
+
+        if (other instanceof Thorn) {
+            console.log("You died by Thorn!");
             this.currentLives--;
             if (this.currentLives < 0) this.currentLives = 0;
             if (this.ui) this.ui.addDeath();
@@ -89,11 +114,20 @@ export class Kribo extends Actor {
             this.resetKribo();
         }
 
-        if (event.other.owner instanceof Bean) {
-            console.log(`Kribo got a point!`);
+        if (other instanceof Bean) {
+            console.log("Kribo got a point!");
             this.score++;
             if (this.ui) this.ui.addScore();
-            event.other.owner.kill();
+            other.kill();
+        }
+
+        if (other instanceof Star) {
+            console.log("Level completed!");
+            const time = Math.floor(this.engine.clock.now() / 1000);
+            this.engine.goToScene('finish', {
+                score: this.score,
+                time: time
+            });
         }
     }
-}
+}    

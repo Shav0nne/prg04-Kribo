@@ -1,50 +1,61 @@
-import { Scene, Label, FontUnit, Vector, Keys, Font, Color } from "excalibur";
-import { GameLevel } from './gamelevel1.js';
+import { Scene, Label, FontUnit, Vector, Keys, Font, Color, Actor } from "excalibur"
+import { Resources } from "./resources.js"
+import { GameLevel } from "./gamelevel1.js"
 
 export class StartScene extends Scene {
     onInitialize(engine) {
+        const background = new Actor({
+            pos: new Vector(400, 300),
+            width: 800,
+            height: 600,
+            anchor: new Vector(0.5, 0.5)
+        })
+
+        const bgSprite = Resources.Scenebg.toSprite()
+        background.graphics.use(bgSprite)
+        background.scale = background.scale.scale(2)
+
+        this.add(background)
+
         const title = new Label({
             text: "The Bizarre Kribo Adventure",
             font: new Font({
                 size: 40,
                 unit: FontUnit.Px,
-                family: 'Arial',
+                family: "Impact",
                 color: Color.White
             }),
-            pos: new Vector(100, 200)
-        });
+            pos: new Vector(160, 200),
+        })
 
         const instruction = new Label({
-            text: "Press ENTER to start",
+            text: "Druk op ENTER om te starten",
             font: new Font({
-                size: 20,
+                size: 30,
                 unit: FontUnit.Px,
-                family: 'Arial',
+                family: "Impact",
                 color: Color.White
             }),
-            pos: new Vector(100, 260)
-        });
-
-        this.add(title);
-        this.add(instruction);
+            pos: new Vector(210, 260),
+        })
+        this.add(title)
+        this.add(instruction)
     }
 
     onActivate() {
-        const kb = this.engine.input.keyboard;
+        const kb = this.engine.input.keyboard
         this._enterHandler = (evt) => {
             if (evt.key === Keys.Enter) {
-                console.log("Start game!");
-                this.engine.removeScene("game");
-                this.engine.add("game", new GameLevel());
-                this.engine.goToScene("game");
+                console.log("Start game!")
+                this.engine.removeScene("game")
+                this.engine.add("game", new GameLevel())
+                this.engine.goToScene("game")
             }
-        };
-
-        kb.on("press", this._enterHandler);
+        }
+        kb.on("press", this._enterHandler)
     }
 
-
     onDeactivate() {
-        this.engine.input.keyboard.off("press", this._enterHandler);
+        this.engine.input.keyboard.off("press", this._enterHandler)
     }
 }

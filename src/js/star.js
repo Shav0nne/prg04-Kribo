@@ -5,8 +5,8 @@ export class Star extends Actor {
   constructor(x, y) {
     super({
       pos: new Vector(x, y),
-      width: Resources.Star.width * 0.3,
-      height: Resources.Star.height * 0.3,
+      width: Resources.Star.width * 0.5,
+      height: Resources.Star.height * 0.5,
       collisionType: CollisionType.Passive
     });
   }

@@ -6,7 +6,7 @@ export class Shadow extends Actor {
     super({
       pos: new Vector(x, y),
       width: Resources.Shadow.width * 0.3,
-      height: Resources.Shadow.height * 0.8,
+      height: Resources.Shadow.height * 0.7,
       collisionType: CollisionType.Passive
     });
   }

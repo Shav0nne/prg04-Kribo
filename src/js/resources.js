@@ -8,6 +8,7 @@ const Resources = {
     Bean: new ImageSource('images/bean.png'),
     Star: new ImageSource('images/star.png'),
     BgHappy: new ImageSource('images/backgroundhappy.jpeg'),
+    Scenebg: new ImageSource('images/scenebg.png'),
     Block: new ImageSource('images/block.png'),
     Thorn: new ImageSource('images/thorn.png'),
     Platform: new ImageSource('images/platform.png'),
