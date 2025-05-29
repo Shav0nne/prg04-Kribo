@@ -30,23 +30,46 @@ export class GameLevel extends Scene {
 
         this.ui = new UI()
         this.add(this.ui)
-
         this.lives = new Lives()
         this.add(this.lives)
 
         this.add(new Platform(250, 350))
         this.add(new Platform(580, 250))
+        this.add(new Platform(1000, 195))
+        this.add(new Platform(1360, 350))
+        this.add(new Platform(1800, 150))
+        this.add(new Platform(2220, 60))
+        this.add(new Platform(2220, 350))
+        this.add(new Platform(2520, 195))
 
         this.add(new Thorn(400, 420))
         this.add(new Thorn(650, 180))
+        this.add(new Thorn(830, 420))
+        this.add(new Thorn(900, 130))
+        this.add(new Thorn(1360, 280))
+        this.add(new Thorn(1950, 420))
+        this.add(new Thorn(2150, 280))
+        this.add(new Thorn(2150, 280))
+        this.add(new Thorn(2800, 420))
+        this.add(new Thorn(2880, 420))
+        this.add(new Thorn(3150, 420))
 
-        this.add(new Shadow(500, 420))
-         this.add(new Shadow(300, 300))
+        this.add(new Shadow(250, 280, 190, 310))
+        this.add(new Shadow(520, 420, 500, 750))
+        this.add(new Shadow(1060, 420, 900, 1100))
+        this.add(new Shadow(1680, 420, 1680, 1890))
+        this.add(new Shadow(1900, 80, 1700, 1900))
+        this.add(new Shadow(2320, 420, 2320, 2500))
+        this.add(new Shadow(2420, 120, 2420, 2600))
 
-        this.add(new Bean(300, 450))
         this.add(new Bean(300, 300))
         this.add(new Bean(550, 200))
         this.add(new Bean(550, 450))
+        this.add(new Bean(990, 150))
+        this.add(new Bean(1880, 450))
+        this.add(new Bean(1750, 120))
+        this.add(new Bean(2250, 30))
+        this.add(new Bean(2580, 150))
 
         const kribo = new Kribo(this.ui, this.lives)
         this.add(kribo)
@@ -58,6 +81,7 @@ export class GameLevel extends Scene {
             if (event.other.owner === kribo) {
                 const score = this.ui.getScore();
                 this.engine.goToScene("finish", { score: score });
+                console.log("Score sent to finish:", score);
             }
         });
 

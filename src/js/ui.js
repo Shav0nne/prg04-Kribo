@@ -35,9 +35,15 @@ export class UI extends ScreenElement {
     }
 
     addScore(points = 10) {
-        this.score += points
-        this.updateScore()
+    this.score += points
+    this.updateScore()
+    //met AI
+    let highscore = parseInt(localStorage.getItem("highscore")) || 0
+    if (this.score > highscore) {
+        localStorage.setItem("highscore", this.score.toString())
+        console.log("Highscore updated in UI:", this.score)
     }
+}
 
     addDeath() {
         this.death++

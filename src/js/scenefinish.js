@@ -3,7 +3,7 @@ import { Resources } from "./resources.js"
 import { GameLevel } from "./gamelevel1.js"
 
 export class SceneFinish extends Scene {
-  
+
   onInitialize(engine) {
     const background = new Actor({
       pos: new Vector(400, 300),
@@ -16,18 +16,17 @@ export class SceneFinish extends Scene {
     background.scale = background.scale.scale(2)
     this.add(background)
 
-    const score = localStorage.getItem("highscore") || "0"
-
     this.highscoreLabel = new Label({
-      text: `Highscore: ${score}`,
+      text: `Highscore: 0`,
       font: new Font({
         size: 25,
         unit: FontUnit.Px,
         family: "Impact",
-        color: Color.Yellow
+        color: Color.Yellow,
+        textAlign: 'center'
       }),
-      pos: new Vector(200, 260)
-    })
+      pos: new Vector(400, 260)
+    });
 
     this.title = new Label({
       text: "Level 1 completed!",
@@ -35,9 +34,10 @@ export class SceneFinish extends Scene {
         size: 40,
         unit: FontUnit.Px,
         family: "Impact",
-        color: Color.White
+        color: Color.White,
+        textAlign: 'center'
       }),
-      pos: new Vector(250, 160)
+      pos: new Vector(400, 200)
     })
 
     this.scoreLabel = new Label({
@@ -48,7 +48,7 @@ export class SceneFinish extends Scene {
         family: "Impact",
         color: Color.White
       }),
-      pos: new Vector(200, 220)
+      pos: new Vector(280, 200)
     })
 
     const instruction = new Label({
@@ -57,9 +57,10 @@ export class SceneFinish extends Scene {
         size: 25,
         unit: FontUnit.Px,
         family: "Impact",
-        color: Color.White
+        color: Color.White,
+        textAlign: 'center'
       }),
-      pos: new Vector(170, 320)
+      pos: new Vector(400, 310)
     })
 
     this.add(this.title)
@@ -68,30 +69,31 @@ export class SceneFinish extends Scene {
     this.add(instruction)
   }
 
-  onActivate(context) {
-    const score = context.score || 0
+onActivate(context) {
+    console.log("Context received in finish scene:", context);
+    const score = typeof context.data?.score === "number" ? context.data.score : 0;
 
     if (localStorage.getItem("highscore")) {
-      const highscore = localStorage.getItem("highscore")
-      if (highscore < score) {
-        localStorage.setItem("highscore", score)
-      }
+        const highscore = parseInt(localStorage.getItem("highscore"));
+        if (score > highscore) {
+            localStorage.setItem("highscore", score);
+        }
     } else {
-      localStorage.setItem("highscore", score)
+        localStorage.setItem("highscore", score);
     }
 
-    this.scoreLabel.text = `Your score: ${score}.`
-    const highscore = localStorage.getItem("highscore")
-    this.highscoreLabel.text = `Highscore: ${highscore}`
+    const latestHighscore = localStorage.getItem("highscore");
+    this.highscoreLabel.text = `Highscore: ${latestHighscore}`;
 
-    const kb = this.engine.input.keyboard
+    const kb = this.engine.input.keyboard;
     this._enterHandler = (evt) => {
-      if (evt.key === Keys.Enter) {
-        this.engine.removeScene("game")
-        this.engine.add("game", new GameLevel())
-        this.engine.goToScene("game")
-      }
-    }
-    kb.on("press", this._enterHandler)
-  }
+        if (evt.key === Keys.Enter) {
+            this.engine.removeScene("game");
+            this.engine.add("game", new GameLevel());
+            this.engine.goToScene("game");
+        }
+    };
+    kb.on("press", this._enterHandler);
+}
+
 }

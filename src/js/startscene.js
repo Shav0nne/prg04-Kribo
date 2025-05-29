@@ -23,20 +23,22 @@ export class StartScene extends Scene {
                 size: 40,
                 unit: FontUnit.Px,
                 family: "Impact",
-                color: Color.White
+                color: Color.White,
+                textAlign: 'center'
             }),
-            pos: new Vector(160, 200),
+            pos: new Vector(400, 200),
         })
 
         const instruction = new Label({
-            text: "Druk op ENTER om te starten",
+            text: "Press ENTER to start the game!",
             font: new Font({
                 size: 30,
                 unit: FontUnit.Px,
                 family: "Impact",
-                color: Color.White
+                color: Color.White,
+                textAlign: 'center'
             }),
-            pos: new Vector(210, 260),
+            pos: new Vector(400, 260),
         })
         this.add(title)
         this.add(instruction)
