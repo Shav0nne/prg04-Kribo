@@ -40,7 +40,6 @@ export class Kribo extends Actor {
         this.body.limitDegreeOfFreedom.push(DegreeOfFreedom.Rotation);
 
         this.on('collisionstart', (event) => this.kriboDeath(event));
-
         this.on('postcollision', (event) => {
             if (event.contact.normal.y < 0) {
                 this.hasJumped = false;
@@ -66,6 +65,16 @@ export class Kribo extends Actor {
             this.hasJumped = true;
             Resources.Jump.play(1.2);
             console.log("Kribo jumps!");
+        }
+
+        if (this.pos.x < 0) {
+            this.pos.x = 0;
+            this.vel.x = 0;
+        }
+
+        if (this.pos.y > 450) {
+            this.pos.y = 450;
+            this.vel.y = 0;
         }
 
         if (this.pos.y > 500) {

@@ -17,6 +17,7 @@ export class GameLevel extends Scene {
 
     onActivate(context) {
         this.clear();
+        Resources.KriboHappyLand.stop();
         this.resetScene();
     }
 
