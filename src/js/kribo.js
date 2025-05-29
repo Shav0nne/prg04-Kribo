@@ -6,6 +6,15 @@ import { Shadow } from "./shadow.js";
 import { Star } from './star.js'
 
 export class Kribo extends Actor {
+
+    #ui
+    #lives
+    #maxLives = 3
+    #currentLives = 3
+    #score = 0
+    #hasJumped = false
+    #engine = null
+
     constructor(ui, lives) {
         super({
             width: Resources.Kribo.width * 0.8,
@@ -55,20 +64,13 @@ export class Kribo extends Actor {
         if (kb.wasPressed(Keys.Up) && !this.hasJumped) {
             this.body.applyLinearImpulse(new Vector(0, -320 * delta));
             this.hasJumped = true;
+            Resources.Jump.play(1.2);
             console.log("Kribo jumps!");
         }
 
         if (this.pos.y > 500) {
-            console.log("Kribo fell out of the map!");
-            this.currentLives--;
-            if (this.currentLives < 0) this.currentLives = 0;
-            if (this.ui) this.ui.addDeath();
-            if (this.lives) this.lives.showLives(this.currentLives);
-            if (this.currentLives === 0) {
-                console.log("Game Over!");
-                this.engine.goToScene('start');
-            }
-            this.resetKribo();
+            console.log("Kribo fell out of the map! Game Over!");
+            this.engine.goToScene('start');
         }
     }
     resetKribo() {
@@ -87,6 +89,7 @@ export class Kribo extends Actor {
                 this.body.applyLinearImpulse(new Vector(0, -200));
                 this.score += 30;
                 if (this.ui) this.ui.addScore(30);
+                Resources.Kill.play(0.3);
                 return;
             } else {
                 this.handleDeath("Shadow");
@@ -102,6 +105,7 @@ export class Kribo extends Actor {
             other.kill();
             this.score += 10;
             if (this.ui) this.ui.addScore(10);
+            Resources.Coin.play(0.4);
         }
 
         if (other instanceof Star) {

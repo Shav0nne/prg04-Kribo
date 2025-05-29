@@ -12,8 +12,8 @@ import { UI } from './ui.js'
 import { Lives } from './lives.js'
 
 export class GameLevel extends Scene {
-    ui
-    lives
+    #ui
+    #lives
 
     onActivate(context) {
         this.clear();
@@ -93,7 +93,7 @@ export class GameLevel extends Scene {
         this.camera.strategy.lockToActor(kribo)
         this.camera.strategy.limitCameraBounds(new BoundingBox(0, -200, 3200, 600))
 
-        Resources.KriboHappyLand.play(0.4)
+        Resources.KriboHappyLand.play(0.2)
 
         console.log("Level 1 loaded")
     }

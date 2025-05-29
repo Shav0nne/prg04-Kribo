@@ -71,6 +71,8 @@ export class SceneFinish extends Scene {
 
 onActivate(context) {
     console.log("Context received in finish scene:", context);
+
+    //AI gevraagt!
     const score = typeof context.data?.score === "number" ? context.data.score : 0;
 
     if (localStorage.getItem("highscore")) {
@@ -84,16 +86,15 @@ onActivate(context) {
 
     const latestHighscore = localStorage.getItem("highscore");
     this.highscoreLabel.text = `Highscore: ${latestHighscore}`;
-
-    const kb = this.engine.input.keyboard;
-    this._enterHandler = (evt) => {
-        if (evt.key === Keys.Enter) {
+  }
+    
+    onPreUpdate(engine, delta) {
+        const kb = engine.input.keyboard;
+        if (kb.wasPressed(Keys.Enter)) {
             this.engine.removeScene("game");
             this.engine.add("game", new GameLevel());
             this.engine.goToScene("game");
         }
-    };
-    kb.on("press", this._enterHandler);
-}
-
-}
+      }
+    }
+  

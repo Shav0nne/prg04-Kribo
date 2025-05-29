@@ -3,7 +3,6 @@ import { ImageSource, Resource, Loader, Sound, ImageWrapping} from 'excalibur'
 // voeg hier jouw eigen resources toe
 const Resources = {
     Kribo: new ImageSource('images/kribo.png'),
-    // Kriboafk: new ImageSource('images/kriboafk.png'),
     Lives : new ImageSource('images/lives.png', { wrapping: ImageWrapping.Repeat}),
     Bean: new ImageSource('images/bean.png'),
     Star: new ImageSource('images/star.png'),
@@ -13,7 +12,10 @@ const Resources = {
     Thorn: new ImageSource('images/thorn.png'),
     Platform: new ImageSource('images/platform.png'),
     Shadow: new ImageSource('images/shadow.png'),
-    KriboHappyLand: new Sound ('sounds/KriboHappyLand.mp3')
+    KriboHappyLand: new Sound ('sounds/KriboHappyLand.mp3'),
+    Coin: new Sound ('sounds/coin.mp3'),
+    Jump: new Sound ('sounds/jump.mp3'),
+    Kill: new Sound ('sounds/kill.mp3'),
 }
 
 

@@ -30,7 +30,7 @@ export class StartScene extends Scene {
         })
 
         const instruction = new Label({
-            text: "Press ENTER to start the game!",
+            text: "Press Enter to start the game",
             font: new Font({
                 size: 30,
                 unit: FontUnit.Px,
@@ -44,17 +44,14 @@ export class StartScene extends Scene {
         this.add(instruction)
     }
 
-    onActivate() {
-        const kb = this.engine.input.keyboard
-        this._enterHandler = (evt) => {
-            if (evt.key === Keys.Enter) {
-                console.log("Start game!")
-                this.engine.removeScene("game")
-                this.engine.add("game", new GameLevel())
-                this.engine.goToScene("game")
-            }
+    onPreUpdate(engine, delta) {
+        const kb = engine.input.keyboard;
+        if (kb.wasPressed(Keys.Enter)) {
+            console.log("Start game!");
+            this.engine.removeScene("game");
+            this.engine.add("game", new GameLevel());
+            this.engine.goToScene("game");
         }
-        kb.on("press", this._enterHandler)
     }
 
     onDeactivate() {
