@@ -1,4 +1,4 @@
-import { ScreenElement, Vector, Label, Font, FontUnit } from "excalibur";
+import { ScreenElement, Vector, Label, Font, FontUnit } from "excalibur"
 
 export class UI extends ScreenElement {
     score
@@ -6,9 +6,9 @@ export class UI extends ScreenElement {
     scoreLabel
 
     constructor() {
-        super({ anchor: Vector.Zero });
-        this.score = 0;
-        this.death = 0;
+        super({ anchor: Vector.Zero })
+        this.score = 0
+        this.death = 0
 
         this.deathLabel = new Label({
             text: `Deaths: ${this.death}`,
@@ -18,37 +18,41 @@ export class UI extends ScreenElement {
                 size: 1,
                 unit: FontUnit.Px
             })
-        });
+        })
 
         this.scoreLabel = new Label({
-            text: `Beans: ${this.score}`,
+            text: `Score: ${this.score}`,
             pos: new Vector(22, 80),
             font: new Font({
                 family: 'impact',
                 size: 25,
                 unit: FontUnit.Px
             })
-        });
+        })
 
-        this.addChild(this.scoreLabel);
-        this.addChild(this.deathLabel);
+        this.addChild(this.scoreLabel)
+        this.addChild(this.deathLabel)
     }
 
-    addScore() {
-        this.score++;
-        this.updateScore();
+    addScore(points = 10) {
+        this.score += points
+        this.updateScore()
     }
 
     addDeath() {
-        this.death++;
-        this.updateDeath();
+        this.death++
+        this.updateDeath()
     }
 
     updateScore() {
-        this.scoreLabel.text = `Beans: ${this.score}`;
+        this.scoreLabel.text = `Score: ${this.score}`
     }
 
     updateDeath() {
-        this.deathLabel.text = `Deaths: ${this.death}`;
+        this.deathLabel.text = `Deaths: ${this.death}`
+    }
+
+    getScore() {
+        return this.score
     }
 }

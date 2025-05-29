@@ -77,8 +77,7 @@ export class Kribo extends Actor {
     }
 
     kriboDeath(event) {
-        const other = event.other?.owner;
-
+        const other = event.other.owner;
         if (!other) return;
 
         if (other instanceof Shadow) {
@@ -86,48 +85,43 @@ export class Kribo extends Actor {
                 console.log("Enemy defeated!");
                 other.kill();
                 this.body.applyLinearImpulse(new Vector(0, -200));
+                this.score += 30;
+                if (this.ui) this.ui.addScore(30);
                 return;
             } else {
-                console.log("You died by Shadow!");
-                this.currentLives--;
-                if (this.currentLives < 0) this.currentLives = 0;
-                if (this.ui) this.ui.addDeath();
-                if (this.lives) this.lives.showLives(this.currentLives);
-                if (this.currentLives === 0) {
-                    console.log("Game Over!");
-                    this.engine.goToScene('start');
-                }
-                this.resetKribo();
+                this.handleDeath("Shadow");
             }
         }
 
         if (other instanceof Thorn) {
-            console.log("You died by Thorn!");
-            this.currentLives--;
-            if (this.currentLives < 0) this.currentLives = 0;
-            if (this.ui) this.ui.addDeath();
-            if (this.lives) this.lives.showLives(this.currentLives);
-            if (this.currentLives === 0) {
-                console.log("Game Over!");
-                this.engine.goToScene('start');
-            }
-            this.resetKribo();
+            this.handleDeath("Thorn");
         }
 
         if (other instanceof Bean) {
-            console.log("Kribo got a point!");
-            this.score++;
-            if (this.ui) this.ui.addScore();
+            console.log("Kribo got a bean!");
             other.kill();
+            this.score += 10;
+            if (this.ui) this.ui.addScore(10);
         }
 
         if (other instanceof Star) {
             console.log("Level completed!");
-            const time = Math.floor(this.engine.clock.now() / 1000);
             this.engine.goToScene('finish', {
-                score: this.score,
-                time: time
+                score: this.ui?.score || 0
             });
         }
     }
-}    
+
+    handleDeath(cause) {
+        console.log(`You died by ${cause}!`);
+        this.currentLives--;
+        if (this.currentLives < 0) this.currentLives = 0;
+        if (this.ui) this.ui.addDeath();
+        if (this.lives) this.lives.showLives(this.currentLives);
+        if (this.currentLives === 0) {
+            console.log("Game Over!");
+            this.engine.goToScene('start');
+        }
+        this.resetKribo();
+    }
+} 

@@ -3,10 +3,7 @@ import { Resources } from "./resources.js"
 import { GameLevel } from "./gamelevel1.js"
 
 export class SceneFinish extends Scene {
-  /**
-   * @param {object} data 
-   * @param {number} data.score 
-   */
+  
   onInitialize(engine) {
     const background = new Actor({
       pos: new Vector(400, 300),
@@ -14,59 +11,78 @@ export class SceneFinish extends Scene {
       height: 600,
       anchor: new Vector(0.5, 0.5)
     })
-
     const bgSprite = Resources.Scenebg.toSprite()
     background.graphics.use(bgSprite)
     background.scale = background.scale.scale(2)
-
     this.add(background)
 
+    const score = localStorage.getItem("highscore") || "0"
+
+    this.highscoreLabel = new Label({
+      text: `Highscore: ${score}`,
+      font: new Font({
+        size: 25,
+        unit: FontUnit.Px,
+        family: "Impact",
+        color: Color.Yellow
+      }),
+      pos: new Vector(200, 260)
+    })
+
     this.title = new Label({
-      text: "Level completed!",
+      text: "Level 1 completed!",
       font: new Font({
         size: 40,
         unit: FontUnit.Px,
         family: "Impact",
         color: Color.White
       }),
-      pos: new Vector(260, 160)
+      pos: new Vector(250, 160)
     })
 
     this.scoreLabel = new Label({
-      text: `score = ${this.score}`, 
+      text: "",
       font: new Font({
         size: 30,
         unit: FontUnit.Px,
         family: "Impact",
         color: Color.White
       }),
-      pos: new Vector(260, 220)
+      pos: new Vector(200, 220)
     })
 
     const instruction = new Label({
       text: "Press ENTER to try again!",
       font: new Font({
-        size: 30,
+        size: 25,
         unit: FontUnit.Px,
         family: "Impact",
         color: Color.White
       }),
-      pos: new Vector(260, 280)
+      pos: new Vector(170, 320)
     })
 
     this.add(this.title)
     this.add(this.scoreLabel)
+    this.add(this.highscoreLabel)
     this.add(instruction)
   }
 
-  /**
-   * Wordt aangeroepen als de scene actief wordt.
-   * @param {object} context
-   * @param {number} context.score
-   */
   onActivate(context) {
-    const tijd = context?.score ?? 0
-    this.scoreLabel.text = `Highscore: ${tijd.toFixed(1)} seconden`
+    const score = context.score || 0
+
+    if (localStorage.getItem("highscore")) {
+      const highscore = localStorage.getItem("highscore")
+      if (highscore < score) {
+        localStorage.setItem("highscore", score)
+      }
+    } else {
+      localStorage.setItem("highscore", score)
+    }
+
+    this.scoreLabel.text = `Your score: ${score}.`
+    const highscore = localStorage.getItem("highscore")
+    this.highscoreLabel.text = `Highscore: ${highscore}`
 
     const kb = this.engine.input.keyboard
     this._enterHandler = (evt) => {
@@ -76,11 +92,6 @@ export class SceneFinish extends Scene {
         this.engine.goToScene("game")
       }
     }
-
     kb.on("press", this._enterHandler)
-  }
-
-  onDeactivate() {
-    this.engine.input.keyboard.off("press", this._enterHandler)
   }
 }

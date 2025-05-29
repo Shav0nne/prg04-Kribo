@@ -16,48 +16,56 @@ export class GameLevel extends Scene {
     lives
 
     onInitialize(engine) {
-        
-        let bg1 = new Backgroundhappy(750, 150);         
-        let bg2 = new Backgroundhappy(750 + 1500, 150);      
-        this.add(bg1);
-        this.add(bg2);
+        let bg1 = new Backgroundhappy(750, 150)
+        let bg2 = new Backgroundhappy(750 + 1500, 150)
+        let bg3 = new Backgroundhappy(750 + 3000, 150)
+        this.add(bg1)
+        this.add(bg2)
+        this.add(bg3)
 
-        const blockWidth = Resources.Block.width * 0.1;
+        this.add(new Block(100, 530))
+        this.add(new Block(975, 530))
+        this.add(new Block(2100, 530))
+        this.add(new Block(3200, 530))
 
-        for (let i = 0; i < 10; i++) {
-            const block = new Block(i * blockWidth + blockWidth / 2, 550);
-            this.add(block);
-        }    
+        this.ui = new UI()
+        this.add(this.ui)
 
-        this.ui = new UI();
-        this.add(this.ui);
+        this.lives = new Lives()
+        this.add(this.lives)
 
-        this.lives = new Lives();
-        this.add(this.lives);
+        this.add(new Platform(250, 350))
+        this.add(new Platform(580, 250))
 
-        this.add(new Platform(250, 350));
-        this.add(new Platform(580, 250));
+        this.add(new Thorn(400, 420))
+        this.add(new Thorn(650, 180))
 
-        this.add(new Thorn(400, 420));
-        this.add(new Thorn(650, 180));
-        // this.add(new Thorn(850, 420));
+        this.add(new Shadow(500, 420))
+         this.add(new Shadow(300, 300))
 
-        this.add(new Shadow(500, 420));
+        this.add(new Bean(300, 450))
+        this.add(new Bean(300, 300))
+        this.add(new Bean(550, 200))
+        this.add(new Bean(550, 450))
 
-        this.add(new Bean(300, 450));
-        this.add(new Bean(300, 300));
-        this.add(new Bean(550, 200));
+        const kribo = new Kribo(this.ui, this.lives)
+        this.add(kribo)
 
-        const kribo = new Kribo(this.ui, this.lives);
-        this.add(kribo);
+        const star = new Star(3000, 350)
+        this.add(star)
 
-        this.add(new Star(1000, 420));
+        star.on("collisionstart", (event) => {
+            if (event.other.owner === kribo) {
+                const score = this.ui.getScore();
+                this.engine.goToScene("finish", { score: score });
+            }
+        });
 
-        this.camera.strategy.lockToActor(kribo);
-        this.camera.strategy.limitCameraBounds(new BoundingBox(0, -200, 2000, 600));
+        this.camera.strategy.lockToActor(kribo)
+        this.camera.strategy.limitCameraBounds(new BoundingBox(0, -200, 3200, 600))
 
-        Resources.KriboHappyLand.play(0.4);
+        Resources.KriboHappyLand.play(0.4)
 
-        console.log("Level 1 loaded");
+        console.log("Level 1 loaded")
     }
 }
