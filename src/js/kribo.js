@@ -11,7 +11,7 @@ export class Kribo extends Actor {
             width: Resources.Kribo.width * 0.8,
             height: Resources.Kribo.height * 0.8,
             collisionType: CollisionType.Active,
-            pos: new Vector(50, 450)
+            pos: new Vector(50, 300)
         });
         this.ui = ui;
         this.lives = lives;
@@ -73,7 +73,7 @@ export class Kribo extends Actor {
     }
     resetKribo() {
         this.vel = Vector.Zero;
-        this.pos = new Vector(100, 300);
+        this.pos = new Vector(50, 300);
     }
 
     kriboDeath(event) {

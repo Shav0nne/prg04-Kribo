@@ -15,10 +15,15 @@ export class GameLevel extends Scene {
     ui
     lives
 
-    onInitialize(engine) {
+    onActivate(context) {
+        this.clear();
+        this.resetScene();
+    }
+
+    resetScene() {
         let bg1 = new Backgroundhappy(750, 150)
-        let bg2 = new Backgroundhappy(750 + 1500, 150)
-        let bg3 = new Backgroundhappy(750 + 3000, 150)
+        let bg2 = new Backgroundhappy(2250, 150)
+        let bg3 = new Backgroundhappy(3750, 150)
         this.add(bg1)
         this.add(bg2)
         this.add(bg3)
@@ -27,11 +32,6 @@ export class GameLevel extends Scene {
         this.add(new Block(975, 530))
         this.add(new Block(2100, 530))
         this.add(new Block(3200, 530))
-
-        this.ui = new UI()
-        this.add(this.ui)
-        this.lives = new Lives()
-        this.add(this.lives)
 
         this.add(new Platform(250, 350))
         this.add(new Platform(580, 250))
@@ -70,6 +70,11 @@ export class GameLevel extends Scene {
         this.add(new Bean(1750, 120))
         this.add(new Bean(2250, 30))
         this.add(new Bean(2580, 150))
+
+        this.ui = new UI()
+        this.add(this.ui)
+        this.lives = new Lives()
+        this.add(this.lives)
 
         const kribo = new Kribo(this.ui, this.lives)
         this.add(kribo)

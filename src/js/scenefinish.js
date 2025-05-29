@@ -60,7 +60,7 @@ export class SceneFinish extends Scene {
         color: Color.White,
         textAlign: 'center'
       }),
-      pos: new Vector(400, 310)
+      pos: new Vector(400, 360)
     })
 
     this.add(this.title)
