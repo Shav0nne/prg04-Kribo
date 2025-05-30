@@ -53,8 +53,4 @@ export class StartScene extends Scene {
             this.engine.goToScene("game");
         }
     }
-
-    onDeactivate() {
-        this.engine.input.keyboard.off("press", this._enterHandler)
-    }
 }
