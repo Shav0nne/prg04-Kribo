@@ -72,11 +72,6 @@ export class Kribo extends Actor {
             this.vel.x = 0;
         }
 
-        if (this.pos.y > 450) {
-            this.pos.y = 450;
-            this.vel.y = 0;
-        }
-
         if (this.pos.y > 500) {
             console.log("Kribo fell out of the map! Game Over!");
             this.engine.goToScene('start');
