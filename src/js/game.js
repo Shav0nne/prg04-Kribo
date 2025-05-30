@@ -22,8 +22,7 @@ import { GameLevel } from './gamelevel1.js'
     }
   
     startGame() {
-      // this.showDebug(true)
-      const transitions = {
+        const transitions = {
         in: new FadeInOut({ duration: 400, direction: 'in', color: Color.Black }),
         out: new FadeInOut({ duration: 400, direction: 'out', color: Color.Black })
       }
